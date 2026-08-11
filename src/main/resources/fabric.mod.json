@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "axiom-client",
+  "version": "${version}",
+  "name": "Axiom Client",
+  "description": "Client-side utility toolkit for controlled local practice and network experimentation.",
+  "authors": ["Axiom"],
+  "contact": {},
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.axiom.client.AxiomClientMod"
+    ]
+  },
+  "mixins": [
+    "axiom-client.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": ">=1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
