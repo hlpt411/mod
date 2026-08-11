@@ -155,7 +155,6 @@ public class VisualDetectionSystem extends Module {
     }
 
     private void vertex(BufferBuilder buffer, Matrix4f matrix, double x, double y, double z, int color) {
-        // Đã xóa .next() vì trong 1.21 VertexConsumer không còn hàm này
         buffer.vertex(matrix, (float) x, (float) y, (float) z).color(color);
     }
 
@@ -171,8 +170,7 @@ public class VisualDetectionSystem extends Module {
 
     private RenderSystemSnapshot setupRender() {
         RenderSystemSnapshot s = new RenderSystemSnapshot();
-        // Đã đổi sang dùng RenderSystem của Mojang thay vì Minecraft
-        RenderSystem.disableTexture();
+        // Đã xóa RenderSystem.disableTexture() vì không còn tồn tại trong 1.21
         RenderSystem.disableDepthTest();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -182,7 +180,7 @@ public class VisualDetectionSystem extends Module {
     }
 
     private void restoreRender(RenderSystemSnapshot s) {
-        RenderSystem.enableTexture();
+        // Đã xóa RenderSystem.enableTexture() vì không còn tồn tại trong 1.21
         RenderSystem.enableDepthTest();
         RenderSystem.disableBlend();
         RenderSystem.enableCull();
