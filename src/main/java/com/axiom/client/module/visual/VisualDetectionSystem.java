@@ -1,5 +1,6 @@
 package com.axiom.client.module.visual;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.BufferBuilder;
@@ -154,7 +155,8 @@ public class VisualDetectionSystem extends Module {
     }
 
     private void vertex(BufferBuilder buffer, Matrix4f matrix, double x, double y, double z, int color) {
-        buffer.vertex(matrix, (float) x, (float) y, (float) z).color(color).next();
+        // Đã xóa .next() vì trong 1.21 VertexConsumer không còn hàm này
+        buffer.vertex(matrix, (float) x, (float) y, (float) z).color(color);
     }
 
     private void addLabel(Entity entity, String name, float health, float maxHealth, int color) {
@@ -169,20 +171,21 @@ public class VisualDetectionSystem extends Module {
 
     private RenderSystemSnapshot setupRender() {
         RenderSystemSnapshot s = new RenderSystemSnapshot();
-        net.minecraft.client.render.RenderSystem.disableTexture();
-        net.minecraft.client.render.RenderSystem.disableDepthTest();
-        net.minecraft.client.render.RenderSystem.enableBlend();
-        net.minecraft.client.render.RenderSystem.defaultBlendFunc();
-        net.minecraft.client.render.RenderSystem.disableCull();
-        net.minecraft.client.render.RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+        // Đã đổi sang dùng RenderSystem của Mojang thay vì Minecraft
+        RenderSystem.disableTexture();
+        RenderSystem.disableDepthTest();
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableCull();
+        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         return s;
     }
 
     private void restoreRender(RenderSystemSnapshot s) {
-        net.minecraft.client.render.RenderSystem.enableTexture();
-        net.minecraft.client.render.RenderSystem.enableDepthTest();
-        net.minecraft.client.render.RenderSystem.disableBlend();
-        net.minecraft.client.render.RenderSystem.enableCull();
+        RenderSystem.enableTexture();
+        RenderSystem.enableDepthTest();
+        RenderSystem.disableBlend();
+        RenderSystem.enableCull();
     }
 
     private static class LabelEntry {
